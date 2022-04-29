@@ -1,0 +1,1 @@
+INSERT INTO USER VALUES ('blancadepedr','Blanca','password','blancadepedr@gmail.com',20);
