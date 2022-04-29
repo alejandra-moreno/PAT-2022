@@ -1,3 +1,24 @@
+//BORRAR USUARIO
+let borrar_boton = document.getElementById("btnEliminar");
+
+const deleteUser=async ()=>{
+    let usuarioInput=document.getElementById("exampleId").value;
+
+    console.log(usuarioInput);
+
+    let request=await fetch("/api/v1/users/"+usuarioInput, {
+        method: "DELETE",
+        credentials: "same-origin",
+        dataType:"json",
+    }).catch(console.error);
+    
+    if(request.ok){
+        console.log("El usuario ha sido borrado");
+    }
+}
+
+borrar_boton.addEventListener("click",(deleteUser));
+
 //REGISTRAR/CREAR USUARIO
 let submitbtn = document.getElementById("btnRegistro");
 submitbtn.addEventListener("click",
@@ -58,24 +79,3 @@ submitbtn.addEventListener("click",
     }
   })
 );
-
-//BORRAR USUARIO
-let borrar_boton = document.getElementById("btnEliminar");
-
-const deleteUser=async ()=>{
-    let usuarioInput=document.getElementById("exampleId").value;
-
-    console.log(usuarioInput);
-
-    let request=await fetch("api/v1/users/"+usuarioInput, {
-        method: "DELETE",
-        credentials: "same-origin",
-        dataType:"json",
-    });
-    
-    if(request.ok){
-        console.log("El usuario ha sido borrado");
-    }
-}
-
-borrar_boton.addEventListener("click",(deleteUser));
