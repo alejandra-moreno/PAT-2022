@@ -23,7 +23,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/users")
-    public ResponseEntity<Iterable<UserModel>> retriveUsers(){
+    public ResponseEntity<Iterable<UserModel>>retriveUsers(){
 
        Iterable<UserModel> response = userService.getUser();
        return ResponseEntity.ok().body(response);

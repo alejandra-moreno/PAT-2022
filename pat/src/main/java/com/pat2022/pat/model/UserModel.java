@@ -10,8 +10,10 @@ import lombok.Data;
 @Builder
 @Table("USER")
 public class UserModel {
+    
     @Id
     private String userId;
+
     private String userName;
     private String userPassword;
     private String userEmail;
