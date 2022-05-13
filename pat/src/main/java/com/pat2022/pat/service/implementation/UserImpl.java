@@ -38,4 +38,11 @@ public class UserImpl implements UserService{
         return userRepository.findById(id).get();
     }
 
+    @Override
+    public void updatePassword(String userPassword, String userId){
+        if(userRepository.existsById(userId)){
+            userRepository.updatePassword(userPassword, userId);
+        }
+    }
+
 }

@@ -7,4 +7,5 @@ public interface UserService {
     void deleteUser(String userId);
     void createUserService(UserModel user); 
     UserModel getUserById(String userId);
+    void updatePassword(String userPassword, String userId);
 }
