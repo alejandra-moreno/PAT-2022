@@ -1,6 +1,7 @@
 package com.pat2022.pat.controller;
 
 import com.pat2022.pat.model.UserModel;
+import com.pat2022.pat.repository.UserRepository;
 import com.pat2022.pat.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,9 +58,24 @@ public class UserController {
 
     //Actualizar la contraseña
     @PutMapping("/users/{userId}/{userPassword}")
-    public ResponseEntity<String> updateUser(@PathVariable String userId, @PathVariable String userPassword){
+    public ResponseEntity<String> updateUserPassword(@PathVariable String userId, @PathVariable String userPassword){
 
        userService.updatePassword(userPassword, userId);
        return new ResponseEntity<String>("{\"result\" : \"OK\"}", HttpStatus.OK);
+    }
+
+    @Autowired
+    UserRepository us;
+
+    //Actualizar la contraseña
+    @PutMapping("/users/{userId}")
+    public ResponseEntity<UserModel> updateUser(@PathVariable String userId, @RequestBody UserModel user){
+        
+        UserModel newUser = userService.updateUser(userId, user);
+        if(newUser == null){
+            return ResponseEntity.badRequest().body(null);
+        }
+        return ResponseEntity.ok().body(newUser);
+         
     }
 }

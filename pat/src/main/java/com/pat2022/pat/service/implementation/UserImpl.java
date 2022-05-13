@@ -45,4 +45,13 @@ public class UserImpl implements UserService{
         }
     }
 
+    @Override
+    public UserModel updateUser(String userId, UserModel user){
+        if(userRepository.existsById(userId)){
+            return userRepository.save(user);
+        }else{
+            return null;
+        }
+    }
+
 }

@@ -80,3 +80,40 @@ submitbtn.addEventListener("click",
   })
 );
 
+
+//ACTUALIZAR INFO REGISTRO
+
+let actualizar_boton = document.getElementById("btnActualizar");
+
+const actualizarInfo = async() => {
+
+    let nombreI = document.getElementById("exampleFirstName").value;
+    let idI = document.getElementById("exampleId").value;
+    let emailI = document.getElementById("exampleInputEmail").value;
+    let edadI = document.getElementById("exampleAge").value;      
+    let contraseñaI = document.getElementById("exampleInputPassword").value;
+
+    console.log(idI);
+
+    let request = await fetch("/api/v1/users/"+idI, {
+      method : "PUT",
+      credentials: "same-origin", 
+      headers: { 
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+          userId : idI,
+          userName : nombreI,
+          userPassword : contraseñaI,
+          userEmail : emailI,
+          userAge : parseInt(edadI),
+      }),
+          dataType: "json",
+      }).catch(console.error);
+
+      if(request.ok) {
+        console.log("Success!");
+      }
+}
+
+actualizar_boton.addEventListener("click",(actualizarInfo));
