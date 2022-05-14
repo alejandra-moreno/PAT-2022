@@ -1,7 +1,10 @@
 package com.pat2022.pat.controller;
 
+import java.util.List;
+
 import com.pat2022.pat.model.SongModel;
 import com.pat2022.pat.service.SongService;
+import com.pat2022.pat.service.dto.FavouritesJoinDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +33,12 @@ public class SongController {
     @GetMapping("/song/{songId}")
     public SongModel getSong(@PathVariable String songId){
         return songService.getSongById(songId);
+    }
+
+    @GetMapping("/song/favourite")
+    public ResponseEntity<Iterable<FavouritesJoinDTO>> retriveFavourite(){
+        Iterable<FavouritesJoinDTO> response = songService.getFavourite();
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/song")

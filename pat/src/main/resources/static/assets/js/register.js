@@ -76,6 +76,7 @@ submitbtn.addEventListener("click",
 
   if(request.ok) {
       console.log("Success!");
+      window.location.href = "./index.html";
     }
   })
 );
