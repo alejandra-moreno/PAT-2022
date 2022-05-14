@@ -17,9 +17,7 @@ public class SongImpl implements SongService{
     @Autowired
     private SongRepository songRepository;
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-    @Override
+    
     public Iterable<SongModel> getSong() {
         
         return songRepository.findAll();
@@ -48,28 +46,6 @@ public class SongImpl implements SongService{
     }
 
 
-    @Override
-    public List<FavouritesJoinDTO> getFavourite(){
-        String query =
-        """
-        SELECT USER.USER_NAME, SONG.SONG_NAME, SONG.SONG_ARTIST, SONG.SONG_ALBUM, SONG.SONG_DURATION
-        FROM FAVOURITE
-        LEFT JOIN USER ON (FAVOURITE.USER_ID = USER.USER_ID)  
-        INNER JOIN SONG ON (FAVOURITE.SONG_ID = SONG.SONG_ID)      
-        """;
 
-        List<FavouritesJoinDTO> joinList = jdbcTemplate.query(
-            query, 
-            (rs,rowNum) ->
-            new FavouritesJoinDTO(
-                rs.getString("USER_NAME"),
-                rs.getString("SONG_NAME"),
-                rs.getString("SONG_ARTIST"),
-                rs.getString("SONG_ALBUM"),
-                rs.getInt("SONG_DURATION")
-            )
-        );
-        return joinList;
-    }
     
 }

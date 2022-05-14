@@ -35,12 +35,6 @@ public class SongController {
         return songService.getSongById(songId);
     }
 
-    @GetMapping("/song/favourite")
-    public ResponseEntity<Iterable<FavouritesJoinDTO>> retriveFavourite(){
-        Iterable<FavouritesJoinDTO> response = songService.getFavourite();
-        return ResponseEntity.ok().body(response);
-    }
-
     @PostMapping("/song")
     public ResponseEntity<String> createSongById(@RequestBody SongModel song, BindingResult bindingResult){
         if(bindingResult.hasErrors()){

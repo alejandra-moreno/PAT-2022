@@ -20,4 +20,6 @@ public interface UserRepository extends CrudRepository<UserModel,String>{
     @Modifying
     @Query("UPDATE USER SET USER.USER_PASSWORD= :userPassword WHERE USER.USER_ID = :userId")
     public void updatePassword(String userPassword, String userId);
+
+    public UserModel findByUserName(String userId);
 }

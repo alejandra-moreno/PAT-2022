@@ -3,6 +3,7 @@ package com.pat2022.pat.controller;
 import com.pat2022.pat.model.UserModel;
 import com.pat2022.pat.repository.UserRepository;
 import com.pat2022.pat.service.UserService;
+import com.pat2022.pat.service.dto.FavouritesJoinDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
     @GetMapping("/users")
     public ResponseEntity<Iterable<UserModel>>retriveUsers(){
 
@@ -34,6 +36,12 @@ public class UserController {
     @GetMapping("/users/{userId}")
     public UserModel getUser(@PathVariable("userId") String userId){
         return userService.getUserById(userId);
+    }
+
+    @GetMapping("/users/{userId}/favourites")
+    public ResponseEntity<Iterable<FavouritesJoinDTO>> retriveFavourite(){
+        Iterable<FavouritesJoinDTO> response = userService.getFavourite();
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/users")
