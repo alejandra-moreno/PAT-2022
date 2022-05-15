@@ -66,51 +66,12 @@ const APIController = (function() {
         const data = await result.json();
         return data;
     }
-
-    //FUNCION OBTENER A LOS ARTISTAS
-    /*const artistaId = document.querySelector('#artistasId');
-    const  _getArtistsSearch = async (token) => {
-
-        console.log("Prueba buscar artista: "+artistaId.value);
-        const result = await fetch(`https://api.spotify.com/v1/search?q=${artistaId.value}&type=artist`, {
-            method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + token}
-        });
-
-        const data = await result.json();
-        let html="";
-        console.log(data);
-        for(var i=0;i<data.artists.items.length;i++){
-            console.log(data.artists.items[i].name)
-            const detailDiv = document.querySelector('#artist-detail');
-            // any time user clicks a new song, we need to clear out the song detail div
-            if(i==0){
-                detailDiv.innerHTML = '';
-            }
-            if(data.artists.items[i].images.length != 0){                
-                html = 
-                `
-                <div class="row col-sm-12 px-0">
-                    <img src="${data.artists.items[i].images[0].url}" alt="" style="height: 30rem;">        
-                </div>
-                <div class="row col-sm-12 px-0">
-                    <label for="artist" class="form-label col-sm-12">${data.artists.items[i].name}</label>
-                </div> 
-                `;
-            }else{
-                html="";
-            }
-
-            detailDiv.insertAdjacentHTML('beforeend', html)
-        }
-        
-        return data.artists.items;
-    }*/
     //FUNCION OBTENER LAS CANCIONES
     const cancionId = document.querySelector('#cancionId');
     const _getCancionesSearch = async (token) => {
 
-        console.log("Prueba canción");
+        const detailDiv = document.querySelector('#cancion-detail');
+        detailDiv.innerHTML = '';
         const result = await fetch(`https://api.spotify.com/v1/search?q=${cancionId.value}&type=track`, {
             method: 'GET',
             headers: { 'Authorization' : 'Bearer ' + token}
@@ -118,41 +79,9 @@ const APIController = (function() {
 
         const data = await result.json();
         console.log(data);
-        for(var i=0;i<data.tracks.items.length;i++){
-            console.log(data.tracks.items[i].name)
-            const detailDiv = document.querySelector('#track-detail');
-            // any time user clicks a new song, we need to clear out the song detail div
-            if(i==0){
-                detailDiv.innerHTML = '';
-            }
-            const html = 
-            `
-            <div class="row col-sm-12 px-0 mx-4 pt-3">
-                    <img src="${data.tracks.items[i].album.images[0].url}" alt="" style="height: 25rem;width: 25rem;">        
-                </div>
-            <div class="row col-sm-12 px-0 mx-5 pb-5">
-                <label for="artist" class="form-label col-sm-12">${data.tracks.items[i].name} de ${data.tracks.items[i].artists[0].name}</label>
-            </div>
-            `;
-
-            detailDiv.insertAdjacentHTML('beforeend', html)
-        }
         return data.tracks.items;
 
     }
-    //FUNCION OBTENER LOS PODCASTS
-    /*const _getEpisodioSearch = async (token) => {
-
-        console.log("Prueba episodio");
-        const result = await fetch(`https://api.spotify.com/v1/search?q=${episodeId}&type=episode`, {
-            method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + token}
-        });
-
-        const data = await result.json();
-        console.log(data);
-        return data;
-    }*/
 
     return {
         getToken() {
@@ -170,18 +99,9 @@ const APIController = (function() {
         getTrack(token, trackEndPoint) {
             return _getTrack(token, trackEndPoint);
         },
-        /*getArtistsSearch(token){
-            return _getArtistsSearch(token);
-        }*/
         getCancionesSearch(token){
             return _getCancionesSearch(token);
-        }/*
-        getAlbumSearch(token){
-            return _getAlbumSearch(token);
-        },
-        getEpisodioSearch(token){
-            return _getEpisodioSearch(token);
-        }*/
+        }
     }
 })();
 
@@ -256,24 +176,74 @@ const UIController = (function() {
         },
 
         // need method to create the artist detail
-        /*createArtistDetail(img, artist) {
-
-            const detailDiv = document.querySelector(DOMElements.divSongDetail);
-            // any time user clicks a new song, we need to clear out the song detail div
-            detailDiv.innerHTML = '';
-
-            const html = 
+        createSongDetail(songs, index) {
+            const detailDiv = document.querySelector('#cancion-detail');
+            html = 
             `
-            <div class="row col-sm-12 px-0">
-                <img src="${img}" alt="" style="height: 30rem;">        
-            </div>
-            <div class="row col-sm-12 px-0">
-                <label for="artist" class="form-label col-sm-12">By ${artist}:</label>
-            </div> 
-            `;
+            <div class="row">
+                <div class="col-5 pt-3 mt-2">
+                    <img src="${songs[index].album.images[0].url}" alt="" style="height: 25rem;width: 25rem;"> 
+                    <p class="form-label col-sm-12 mt-3"><b>${songs[index].name}</b></p>
+                    <div class="col-5 my-4 py-1">
+                        <button type="submit" id="btn_album" class="btn btn-success col-sm-12">Añadir a favoritos</button>
+                    </div>
+                </div>
+                <div class="col-7 pt-3 mb-4 mt-4">
+                    `;
+            //Comprobamos si la cancion es de un artista o de varios
+            if(songs[index].artists.length > 1){
+                html = html+
+                    `
+                    <h6 class="py-3 px-4">Artistas:</h6>
+                    `; 
+                for(var i=0;i<songs[index].artists.length;i++){
+                    html = html+
+                    `
+                        <p style="margin: 0.5rem;font-style: italic;" class="px-5">${songs[index].artists[i].name}</p>
+                    `;   
+                }             
+            }else{
+                html = html+
+                    `
+                    <h6 class="py-3 px-4">Artista:</h6>
+                    <p style="margin: 0.5rem;font-style: italic;" class="px-5">${songs[index].artists[0].name}</p>
+                    `; 
+            }
+            //Comrpobamos si es parte de un album o es un single
+            if(songs[index].album.album_type == "single"){
+                html = html+
+                    `
+                    <h6 class="py-3 px-4">Esta canción es un <i>single</i></h6>
+                    `;              
+            }else{
+                html = html+
+                    `
+                    <h6 class="py-3 px-4">Álbum:</h6>
+                    <p style="margin: 0.5rem;font-style: italic;" class="px-5">${songs[index].album.name}</p>
 
+                    `; 
+            }
+            //Comprobamos si la cancion es explicita o no
+            if(songs[index].explicit == false){
+                html = html+
+                    `
+                    <h6 class="py-3 px-4">Explícita: <i>No</i></h6>
+                    `;              
+            }else{
+                html = html+
+                    `
+                    <h6 class="py-3 px-4">Explícita: <i>Si</i></h6>
+                    `; 
+            }
+            html = html+
+            `
+                    <p class="py-3 px-4">Popularidad: ${songs[index].popularity}/100</p>
+                </div>      
+            </div>
+            <hr>
+            `;
             detailDiv.insertAdjacentHTML('beforeend', html)
-        },*/
+        },
 
         resetTrackDetail() {
             this.inputField().songDetail.innerHTML = '';
@@ -363,6 +333,12 @@ const APPController = (function(UICtrl, APICtrl) {
         const token = UICtrl.getStoredToken().token; 
         // get artists
         const canciones = await APICtrl.getCancionesSearch(token);
+        //display information
+        for(var i=0;i<canciones.length;i++){
+            if(canciones[i].album.images.length != 0){
+                UICtrl.createSongDetail(canciones,i);
+            }
+        }
     });
 
     // create song selection click event listener
