@@ -3,7 +3,6 @@ package com.pat2022.pat.controller;
 
 
 import com.pat2022.pat.model.UserModel;
-import com.pat2022.pat.repository.UserRepository;
 import com.pat2022.pat.service.UserService;
 
 import org.junit.jupiter.api.Test;
@@ -18,8 +17,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.validation.BindingResult;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
