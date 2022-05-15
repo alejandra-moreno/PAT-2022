@@ -71,80 +71,17 @@ const APIController = (function() {
     const artistaId = document.querySelector('#artistasId');
     const  _getArtistsSearch = async (token) => {
 
-        console.log("Prueba buscar artista: "+artistaId.value);
+        const detailDiv = document.querySelector('#artist-detail');
+        detailDiv.innerHTML = '';
         const result = await fetch(`https://api.spotify.com/v1/search?q=${artistaId.value}&type=artist`, {
             method: 'GET',
             headers: { 'Authorization' : 'Bearer ' + token}
         });
 
         const data = await result.json();
-        let html="";
         console.log(data);
-        for(var i=0;i<data.artists.items.length;i++){
-            console.log(data.artists.items[i].name)
-            const detailDiv = document.querySelector('#artist-detail');
-            // any time user clicks a new song, we need to clear out the song detail div
-            if(i==0){
-                detailDiv.innerHTML = '';
-            }
-            if(data.artists.items[i].images.length != 0){                
-                html = 
-                `
-                <div class="row col-sm-12 px-0 mx-4 pt-3">
-                    <img src="${data.artists.items[i].images[0].url}" alt="" style="height: 25rem;width: 25rem;">        
-                </div>
-                <div class="row col-sm-12 px-0 mx-5 pb-5">
-                    <label for="artist" class="form-label col-sm-12">${data.artists.items[i].name}</label>
-                </div> 
-                `;
-            }else{
-                html="";
-            }
-
-            detailDiv.insertAdjacentHTML('beforeend', html)
-        }
-        
         return data.artists.items;
     }
-    //FUNCION OBTENER LOS ÁLBUMES
-    /*const _getAlbumSearch = async (token) => {
-
-        console.log("Prueba álbum");
-        const result = await fetch(`https://api.spotify.com/v1/search?q=${albumId}&type=album`, {
-            method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + token}
-        });
-
-        const data = await result.json();
-        console.log(data);
-        return data;
-    }
-    //FUNCION OBTENEr LAS CANCIONES
-    const _getTracksSearch = async (token) => {
-
-        console.log("Prueba canción");
-        const result = await fetch(`https://api.spotify.com/v1/search?q=${trackId}&type=track`, {
-            method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + token}
-        });
-
-        const data = await result.json();
-        console.log(data);
-        return data;
-    }
-    //FUNCION OBTENER LOS PODCASTS
-    const _getEpisodioSearch = async (token) => {
-
-        console.log("Prueba episodio");
-        const result = await fetch(`https://api.spotify.com/v1/search?q=${episodeId}&type=episode`, {
-            method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + token}
-        });
-
-        const data = await result.json();
-        console.log(data);
-        return data;
-    }*/
 
     return {
         getToken() {
@@ -165,18 +102,8 @@ const APIController = (function() {
         getArtistsSearch(token){
             return _getArtistsSearch(token);
         }
-        /*getTracksSearch(token){
-            return _getTracksSearch(token);
-        },
-        getAlbumSearch(token){
-            return _getAlbumSearch(token);
-        },
-        getEpisodioSearch(token){
-            return _getEpisodioSearch(token);
-        }*/
     }
 })();
-
 
 // UI Module
 const UIController = (function() {
@@ -248,24 +175,42 @@ const UIController = (function() {
         },
 
         // need method to create the artist detail
-        /*createArtistDetail(img, artist) {
-
-            const detailDiv = document.querySelector(DOMElements.divSongDetail);
-            // any time user clicks a new song, we need to clear out the song detail div
-            detailDiv.innerHTML = '';
-
-            const html = 
+        createArtistDetail(artists, index) {
+            const detailDiv = document.querySelector('#artist-detail');
+            html = 
             `
-            <div class="row col-sm-12 px-0">
-                <img src="${img}" alt="" style="height: 30rem;">        
+            <div class="row">
+                <div class="col-5 pt-3 mt-2">
+                    <img src="${artists[index].images[0].url}" alt="" style="height: 25rem;width: 25rem;"> 
+                    <p class="form-label col-sm-12 mt-3"><b>${artists[index].name}</b></p>
+                    <div class="col-5 my-4 py-1">
+                        <button type="submit" id="btn_album" class="btn btn-success col-sm-12">Añadir a favoritos</button>
+                    </div>
+                </div>
+                <div class="col-7 pt-3 mb-4 mt-4">
+                    <p class="px-4">Seguidores: <i>${artists[index].followers.total}</i></p>
+                    `;
+            if(artists[index].genres.length != 0){
+                html = html+
+                    `
+                    <h6 class="py-3 px-4">Géneros musicales:</h6>
+                    `; 
+                for(var i=0;i<artists[index].genres.length;i++){
+                    html = html+
+                    `
+                    <p style="margin: 0.5rem;font-style: italic;" class="px-5">${artists[index].genres[i]}</p>
+                    `;   
+                }             
+            }
+            html = html+
+            `
+                    <p class="py-3 px-4">Popularidad: ${artists[index].popularity}/100</p>
+                </div>      
             </div>
-            <div class="row col-sm-12 px-0">
-                <label for="artist" class="form-label col-sm-12">By ${artist}:</label>
-            </div> 
+            <hr>
             `;
-
             detailDiv.insertAdjacentHTML('beforeend', html)
-        },*/
+        },
 
         resetTrackDetail() {
             this.inputField().songDetail.innerHTML = '';
@@ -355,6 +300,12 @@ const APPController = (function(UICtrl, APICtrl) {
         const token = UICtrl.getStoredToken().token; 
         // get artists
         const artists = await APICtrl.getArtistsSearch(token);
+        //display information
+        for(var i=0;i<artists.length;i++){
+            if(artists[i].images.length != 0){
+                UICtrl.createArtistDetail(artists,i);
+            }
+        }
     });
 
     // create song selection click event listener
