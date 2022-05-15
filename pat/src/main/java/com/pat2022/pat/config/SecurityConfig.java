@@ -48,10 +48,11 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
                 .antMatchers("/api/v1/episode","/api/v1/episode/**").permitAll()
                 .antMatchers("/api/v1/artist","/api/v1/artist/**").permitAll()
                 .antMatchers("/api/v1/album","/api/v1/album/**").permitAll()
+                .antMatchers("/api/v1/users","/api/v1/users/**").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/index").permitAll()
-                .anyRequest().authenticated()
+                //.anyRequest().authenticated()
             .and()
             
             .httpBasic()
@@ -59,7 +60,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
             .cors().and().csrf().disable();
 
     }
-
+    
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder());

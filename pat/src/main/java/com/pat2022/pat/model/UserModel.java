@@ -1,5 +1,7 @@
 package com.pat2022.pat.model;
 
+import java.util.Objects;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -7,7 +9,6 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 @Table("USER")
 public class UserModel {
     
@@ -18,6 +19,8 @@ public class UserModel {
     private String userPassword;
     private String userEmail;
     private int userAge;
+
+    public UserModel(){}
 
     public String getUserId() {
         return this.userId;
@@ -83,4 +86,36 @@ public class UserModel {
         setUserAge(userAge);
         return this;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (o == null)
+            return false;
+        if (!(o instanceof UserModel)) {
+            return false;
+        }
+        UserModel userModel = (UserModel) o;
+        return Objects.equals(userId, userModel.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, userName, userPassword, userEmail, userAge);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " userId='" + getUserId() + "'" +
+            ", userName='" + getUserName() + "'" +
+            ", userPassword='" + getUserPassword() + "'" +
+            ", userEmail='" + getUserEmail() + "'" +
+            ", userAge='" + getUserAge() + "'" +
+            "}";
+    }
+    
 }
+
+    
