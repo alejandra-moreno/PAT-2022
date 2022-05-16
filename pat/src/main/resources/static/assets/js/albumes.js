@@ -199,7 +199,7 @@ const UIController = (function() {
                     <p class="form-label col-sm-12 mt-3"><b>${albumes[index].name} de ${albumes[index].artists[0].name}</b></p>
                     <p class="form-label col-sm-12 mt-3">Fecha de publicación: ${albumes[index].release_date}</p>
                     <div class="col-5 my-4 py-1">
-                        <button type="submit" id="btn_album" class="btn btn-success col-sm-12">Añadir a favoritos</button>
+                        <button onclick = "getFav('${index}','${albumes[index].href}','${albumes[index].name}','${albumes[index].artists[0].name}','${albumes[index].release_date}','${albumes[index].images[0].url}',${albumes[index].total_tracks})" type="submit" id="btn_albumfav" class="btn btn-success col-sm-12">Añadir a favoritos</button>
                     </div>
                 </div>
                 <div class="col-7 pt-3 mb-4 mt-2">
@@ -247,6 +247,12 @@ const UIController = (function() {
     }
 
 })();
+
+getFav = async (index, album_id, album_name, album_artist, album_date, album_image, album_tracks) => {
+    console.log("Prueba marcar favorito:")
+    console.log(index, album_id+"\n Nombre="+album_name+"\n Artista="+album_artist+"\n Fecha="+album_date+"\n Imagen url="+album_image+"\n Tracks="+album_tracks);
+
+}
 
 const APPController = (function(UICtrl, APICtrl) {
 

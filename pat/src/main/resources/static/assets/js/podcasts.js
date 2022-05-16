@@ -184,7 +184,7 @@ const UIController = (function() {
                     <img src="${shows[index].images[0].url}" alt="" style="height: 25rem;width: 25rem;"> 
                     <p class="form-label col-sm-12 mt-3"><b>${shows[index].name}</b></p>
                     <div class="col-5 my-4 py-1">
-                        <button type="submit" id="btn_album" class="btn btn-success col-sm-12">Añadir a favoritos</button>
+                        <button onclick = "getFav('${index}','${shows[index].href}','${shows[index].name}','${shows[index].publisher}','${shows[index].description}','${shows[index].images[0].url}',${shows[index].total_episodes})" type="submit" id="btn_podcastfav" class="btn btn-success col-sm-12">Añadir a favoritos</button>
                     </div>
                 </div>
                 <div class="col-7 pt-3 mb-4 mt-4">
@@ -226,6 +226,12 @@ const UIController = (function() {
     }
 
 })();
+
+getFav = async (index, episode_id, episode_name, episode_publisher, episode_description, episode_image, episode_tracks) => {
+    console.log("Prueba marcar favorito:")
+    console.log(index, episode_id+"\n Nombre="+episode_name+"\n Publicado por="+episode_publisher+"\n Descripción="+episode_description+"\n Imagen url="+episode_image+"\n Tracks="+episode_tracks);
+
+}
 
 const APPController = (function(UICtrl, APICtrl) {
 

@@ -176,7 +176,7 @@ const UIController = (function () {
         },
 
         // need method to create the artist detail
-        createSongDetail(songs, index,token) {
+        createSongDetail(songs, index, token) {
 
             const cancion = JSON.stringify(songs[index]);
 
@@ -190,8 +190,7 @@ const UIController = (function () {
                     <img src="${songs[index].album.images[0].url}" alt="" style="height: 25rem;width: 25rem;"> 
                     <p class="form-label col-sm-12 mt-3"><b>${songs[index].name}</b></p>
                     <div class="col-5 my-4 py-1">
-
-                        <button onclick = "getFav('${index}')" type="button" id="btn_album${index}" class="btn btn-success col-sm-12">Añadir a favoritos</button>
+                        <button onclick = "getFav('${index}','${songs[index].href}','${songs[index].name}','${songs[index].artists[0].name}','${songs[index].album.name}','${songs[index].duration_ms}')" type="button" id="btn_cancionfav" class="btn btn-success col-sm-12">Añadir a favoritos</button>
                     </div>
                 </div>
                 <div class="col-7 pt-3 mb-4 mt-4">
@@ -279,9 +278,9 @@ const UIController = (function () {
 
 })();
 
-const getFav = async (index) => {
-    console.log("Holi")
-    console.log(index);
+getFav = async (index, song_id, song_name, song_artist, song_album, song_duration) => {
+    console.log("Prueba marcar favorito:")
+    console.log(index, song_id+"\n Nombre="+song_name+"\n Artista="+song_artist+"\n Album="+song_album+"\n Duración="+song_duration);
 
 }
 

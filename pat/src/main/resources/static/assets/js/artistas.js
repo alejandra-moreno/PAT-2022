@@ -199,7 +199,7 @@ const UIController = (function() {
                     <img src="${artists[index].images[0].url}" alt="" style="height: 25rem;width: 25rem;"> 
                     <p class="form-label col-sm-12 mt-3 my-3"><b>${artists[index].name}</b></p>
                     <div class="col-5 my-4 py-1">
-                        <button type="submit" id="btn_album" class="btn btn-success col-sm-12">Añadir a favoritos</button>
+                        <button onclick = "getFav('${index}','${artists[index].href}','${artists[index].name}','${artists[index].images[0].url}','${artists[index].genres}','${artists[index].followers.total}')" type="submit" id="btn_artistafav" class="btn btn-success col-sm-12">Añadir a favoritos</button>
                     </div>
                 </div>
                 <div class="col-4 pt-3 mb-4 mt-4">
@@ -279,6 +279,12 @@ const UIController = (function() {
     }
 
 })();
+
+getFav = async (index, artist_id, artist_name, artist_image, artist_genres, artist_followers) => {
+    console.log("Prueba marcar favorito:")
+    console.log(index, artist_id+"\n Nombre="+artist_name+"\n Imagen url="+artist_image+"\n Géneros="+artist_genres+"\n Seguidores="+artist_followers);
+
+}
 
 const APPController = (function(UICtrl, APICtrl) {
 
