@@ -83,6 +83,18 @@ const APIController = (function() {
         return data.artists.items;
     }
 
+    //FUNCION OBTENER LOS ALBUMES DEL ARTISTA
+    const _getAlbumsArtistSearch = async (token, artists) => {
+        const result = await fetch(`${artists.href}/albums`, {
+        method: 'GET',
+        headers: { 'Authorization' : 'Bearer ' + token}
+        });
+
+        const respuesta = await result.json();
+        console.log(respuesta.items);
+        return respuesta;
+    }
+
     return {
         getToken() {
             return _getToken();
@@ -101,6 +113,9 @@ const APIController = (function() {
         },
         getArtistsSearch(token){
             return _getArtistsSearch(token);
+        },
+        getAlbumsArtistSearch(token, artists){
+            return _getAlbumsArtistSearch(token, artists);
         }
     }
 })();
@@ -175,37 +190,63 @@ const UIController = (function() {
         },
 
         // need method to create the artist detail
-        createArtistDetail(artists, index) {
+        createArtistDetail(artists, albums, index) {
             const detailDiv = document.querySelector('#artist-detail');
             html = 
             `
             <div class="row">
-                <div class="col-5 pt-3 mt-2">
+                <div class="col-4 pt-3 mt-2">
                     <img src="${artists[index].images[0].url}" alt="" style="height: 25rem;width: 25rem;"> 
-                    <p class="form-label col-sm-12 mt-3"><b>${artists[index].name}</b></p>
+                    <p class="form-label col-sm-12 mt-3 my-3"><b>${artists[index].name}</b></p>
                     <div class="col-5 my-4 py-1">
                         <button type="submit" id="btn_album" class="btn btn-success col-sm-12">Añadir a favoritos</button>
                     </div>
                 </div>
-                <div class="col-7 pt-3 mb-4 mt-4">
-                    <p class="px-4">Seguidores: <i>${artists[index].followers.total}</i></p>
-                    `;
+                <div class="col-4 pt-3 mb-4 mt-4">
+                    <h6 class="py-1">Álbumes, singles y versiones:</h6>
+            `;
+            //Imprimimos todos los albumes de ese artista, quitando los que estan repetidos
+            const nombresAlbumes = [];
+            let repetido = 0;
+            let posicion = 0;
+            for(var i=0;i<albums.items.length;i++){
+                for(var j=0;j<nombresAlbumes.length;j++){
+                    if (albums.items[i].name == nombresAlbumes[j]){
+                        repetido = 1;
+                    }
+                }
+                if(repetido == 0){
+                    nombresAlbumes[posicion] = albums.items[i].name;
+                    posicion++;
+                    html = html+
+                `
+                        <p style="margin: 0.5rem;font-style: italic;" class="px-5"><small>${albums.items[i].name}</small></p> 
+                `; 
+                }   
+                repetido = 0;           
+            }
+            html = html+
+                    `
+                    </div>
+                    <div class="col-3 pt-3 mb-4 mt-4 px-0">
+                    `; 
             if(artists[index].genres.length != 0){
                 html = html+
                     `
-                    <h6 class="py-3 px-4">Géneros musicales:</h6>
+                        <p class="px-4">Seguidores: <i>${artists[index].followers.total}</i></p>
+                        <h6 class="py-3 px-4">Géneros musicales:</h6>
                     `; 
                 for(var i=0;i<artists[index].genres.length;i++){
                     html = html+
                     `
-                    <p style="margin: 0.5rem;font-style: italic;" class="px-5">${artists[index].genres[i]}</p>
+                        <p style="margin: 0.5rem;font-style: italic;" class="px-5">${artists[index].genres[i]}</p>
                     `;   
                 }             
             }
             html = html+
             `
-                    <p class="py-3 px-4">Popularidad: ${artists[index].popularity}/100</p>
-                </div>      
+                        <p class="py-3 px-4">Popularidad: ${artists[index].popularity}/100</p>
+                    </div>
             </div>
             <hr>
             `;
@@ -303,7 +344,8 @@ const APPController = (function(UICtrl, APICtrl) {
         //display information
         for(var i=0;i<artists.length;i++){
             if(artists[i].images.length != 0){
-                UICtrl.createArtistDetail(artists,i);
+                const albumsArtist = await APICtrl.getAlbumsArtistSearch(token,artists[i]);
+                UICtrl.createArtistDetail(artists,albumsArtist,i);
             }
         }
     });

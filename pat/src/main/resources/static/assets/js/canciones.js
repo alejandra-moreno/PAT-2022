@@ -1,5 +1,5 @@
-const APIController = (function() {
-    
+const APIController = (function () {
+
     const clientId = '80acfc9b7bf644efa5ffb18e72288913';
     const clientSecret = '6c5bab352eb148c79dd5cc1e5ff2f045';
 
@@ -9,8 +9,8 @@ const APIController = (function() {
         const result = await fetch('https://accounts.spotify.com/api/token', {
             method: 'POST',
             headers: {
-                'Content-Type' : 'application/x-www-form-urlencoded', 
-                'Authorization' : 'Basic ' + btoa(clientId + ':' + clientSecret)
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
             },
             body: 'grant_type=client_credentials'
         });
@@ -18,12 +18,12 @@ const APIController = (function() {
         const data = await result.json();
         return data.access_token;
     }
-    
+
     const _getGenres = async (token) => {
 
         const result = await fetch(`https://api.spotify.com/v1/browse/categories?locale=es`, {
             method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + token}
+            headers: { 'Authorization': 'Bearer ' + token }
         });
 
         const data = await result.json();
@@ -33,10 +33,10 @@ const APIController = (function() {
     const _getPlaylistByGenre = async (token, genreId) => {
 
         const limit = 10;
-        
+
         const result = await fetch(`https://api.spotify.com/v1/browse/categories/${genreId}/playlists?limit=${limit}`, {
             method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + token}
+            headers: { 'Authorization': 'Bearer ' + token }
         });
 
         const data = await result.json();
@@ -49,7 +49,7 @@ const APIController = (function() {
 
         const result = await fetch(`${tracksEndPoint}?limit=${limit}`, {
             method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + token}
+            headers: { 'Authorization': 'Bearer ' + token }
         });
 
         const data = await result.json();
@@ -60,7 +60,7 @@ const APIController = (function() {
 
         const result = await fetch(`${trackEndPoint}`, {
             method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + token}
+            headers: { 'Authorization': 'Bearer ' + token }
         });
 
         const data = await result.json();
@@ -74,7 +74,7 @@ const APIController = (function() {
         detailDiv.innerHTML = '';
         const result = await fetch(`https://api.spotify.com/v1/search?q=${cancionId.value}&type=track`, {
             method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + token}
+            headers: { 'Authorization': 'Bearer ' + token }
         });
 
         const data = await result.json();
@@ -82,7 +82,7 @@ const APIController = (function() {
         return data.tracks.items;
 
     }
-
+   
     return {
         getToken() {
             return _getToken();
@@ -99,7 +99,7 @@ const APIController = (function() {
         getTrack(token, trackEndPoint) {
             return _getTrack(token, trackEndPoint);
         },
-        getCancionesSearch(token){
+        getCancionesSearch(token) {
             return _getCancionesSearch(token);
         }
     }
@@ -107,7 +107,7 @@ const APIController = (function() {
 
 
 // UI Module
-const UIController = (function() {
+const UIController = (function () {
 
     //object to hold references to html selectors
     const DOMElements = {
@@ -139,7 +139,7 @@ const UIController = (function() {
         createGenre(text, value) {
             const html = `<option value="${value}">${text}</option>`;
             document.querySelector(DOMElements.selectGenre).insertAdjacentHTML('beforeend', html);
-        }, 
+        },
 
         createPlaylist(text, value) {
             const html = `<option value="${value}">${text}</option>`;
@@ -159,8 +159,8 @@ const UIController = (function() {
             // any time user clicks a new song, we need to clear out the song detail div
             detailDiv.innerHTML = '';
 
-            const html = 
-            `
+            const html =
+                `
             <div class="row col-sm-12 px-0">
                 <img src="${img}" alt="" style="height: 30rem;">        
             </div>
@@ -176,67 +176,73 @@ const UIController = (function() {
         },
 
         // need method to create the artist detail
-        createSongDetail(songs, index) {
+        createSongDetail(songs, index,token) {
+
+            const cancion = JSON.stringify(songs[index]);
+
+
+
             const detailDiv = document.querySelector('#cancion-detail');
-            html = 
-            `
+            html =
+                `
             <div class="row">
                 <div class="col-5 pt-3 mt-2">
                     <img src="${songs[index].album.images[0].url}" alt="" style="height: 25rem;width: 25rem;"> 
                     <p class="form-label col-sm-12 mt-3"><b>${songs[index].name}</b></p>
                     <div class="col-5 my-4 py-1">
-                        <button type="submit" id="btn_album" class="btn btn-success col-sm-12">Añadir a favoritos</button>
+
+                        <button onclick = "getFav('${index}')" type="button" id="btn_album${index}" class="btn btn-success col-sm-12">Añadir a favoritos</button>
                     </div>
                 </div>
                 <div class="col-7 pt-3 mb-4 mt-4">
                     `;
             //Comprobamos si la cancion es de un artista o de varios
-            if(songs[index].artists.length > 1){
-                html = html+
+            if (songs[index].artists.length > 1) {
+                html = html +
                     `
                     <h6 class="py-3 px-4">Artistas:</h6>
-                    `; 
-                for(var i=0;i<songs[index].artists.length;i++){
-                    html = html+
-                    `
+                    `;
+                for (var i = 0; i < songs[index].artists.length; i++) {
+                    html = html +
+                        `
                         <p style="margin: 0.5rem;font-style: italic;" class="px-5">${songs[index].artists[i].name}</p>
-                    `;   
-                }             
-            }else{
-                html = html+
+                    `;
+                }
+            } else {
+                html = html +
                     `
                     <h6 class="py-3 px-4">Artista:</h6>
                     <p style="margin: 0.5rem;font-style: italic;" class="px-5">${songs[index].artists[0].name}</p>
-                    `; 
+                    `;
             }
             //Comrpobamos si es parte de un album o es un single
-            if(songs[index].album.album_type == "single"){
-                html = html+
+            if (songs[index].album.album_type == "single") {
+                html = html +
                     `
                     <h6 class="py-3 px-4">Esta canción es un <i>single</i></h6>
-                    `;              
-            }else{
-                html = html+
+                    `;
+            } else {
+                html = html +
                     `
                     <h6 class="py-3 px-4">Álbum:</h6>
                     <p style="margin: 0.5rem;font-style: italic;" class="px-5">${songs[index].album.name}</p>
 
-                    `; 
+                    `;
             }
             //Comprobamos si la cancion es explicita o no
-            if(songs[index].explicit == false){
-                html = html+
+            if (songs[index].explicit == false) {
+                html = html +
                     `
                     <h6 class="py-3 px-4">Explícita: <i>No</i></h6>
-                    `;              
-            }else{
-                html = html+
+                    `;
+            } else {
+                html = html +
                     `
-                    <h6 class="py-3 px-4">Explícita: <i>Si</i></h6>
-                    `; 
+                    <h6 class="py-3 px-4">Explícita: <i>Sí</i></h6>
+                    `;
             }
-            html = html+
-            `
+            html = html +
+                `
                     <p class="py-3 px-4">Popularidad: ${songs[index].popularity}/100</p>
                 </div>      
             </div>
@@ -244,6 +250,7 @@ const UIController = (function() {
             `;
             detailDiv.insertAdjacentHTML('beforeend', html)
         },
+
 
         resetTrackDetail() {
             this.inputField().songDetail.innerHTML = '';
@@ -258,7 +265,7 @@ const UIController = (function() {
             this.inputField().playlist.innerHTML = '';
             this.resetTracks();
         },
-        
+
         storeToken(value) {
             document.querySelector(DOMElements.hfToken).value = value;
         },
@@ -272,7 +279,13 @@ const UIController = (function() {
 
 })();
 
-const APPController = (function(UICtrl, APICtrl) {
+const getFav = async (index) => {
+    console.log("Holi")
+    console.log(index);
+
+}
+
+const APPController = (function (UICtrl, APICtrl) {
 
     // get input field object ref
     const DOMInputs = UICtrl.inputField();
@@ -280,7 +293,7 @@ const APPController = (function(UICtrl, APICtrl) {
     // get genres on page load
     const loadGenres = async () => {
         //get the token
-        const token = await APICtrl.getToken();           
+        const token = await APICtrl.getToken();
         //store the token onto the page
         UICtrl.storeToken(token);
         //get the genres
@@ -294,17 +307,17 @@ const APPController = (function(UICtrl, APICtrl) {
         //reset the playlist
         UICtrl.resetPlaylist();
         //get the token that's stored on the page
-        const token = UICtrl.getStoredToken().token;        
+        const token = UICtrl.getStoredToken().token;
         // get the genre select field
-        const genreSelect = UICtrl.inputField().genre;       
+        const genreSelect = UICtrl.inputField().genre;
         // get the genre id associated with the selected genre
-        const genreId = genreSelect.options[genreSelect.selectedIndex].value;             
+        const genreId = genreSelect.options[genreSelect.selectedIndex].value;
         // ge the playlist based on a genre
-        const playlist = await APICtrl.getPlaylistByGenre(token, genreId);       
+        const playlist = await APICtrl.getPlaylistByGenre(token, genreId);
         // create a playlist list item for every playlist returned
         playlist.forEach(p => UICtrl.createPlaylist(p.name, p.tracks.href));
     });
-     
+
 
     // create submit button click event listener
     DOMInputs.submit.addEventListener('click', async (e) => {
@@ -313,7 +326,7 @@ const APPController = (function(UICtrl, APICtrl) {
         // clear tracks
         UICtrl.resetTracks();
         //get the token
-        const token = UICtrl.getStoredToken().token;        
+        const token = UICtrl.getStoredToken().token;
         // get the playlist field
         const playlistSelect = UICtrl.inputField().playlist;
         // get track endpoint based on the selected playlist
@@ -321,7 +334,7 @@ const APPController = (function(UICtrl, APICtrl) {
         // get the list of tracks
         const tracks = await APICtrl.getTracks(token, tracksEndPoint);
         // create a track list item
-        tracks.forEach(el => UICtrl.createTrack(el.track.href, el.track.name))        
+        tracks.forEach(el => UICtrl.createTrack(el.track.href, el.track.name))
     });
 
     DOMInputs.submitCancion.addEventListener('click', async (e) => {
@@ -330,13 +343,13 @@ const APPController = (function(UICtrl, APICtrl) {
         // clear tracks
         UICtrl.resetTracks();
         //get the token
-        const token = UICtrl.getStoredToken().token; 
+        const token = UICtrl.getStoredToken().token;
         // get artists
         const canciones = await APICtrl.getCancionesSearch(token);
         //display information
-        for(var i=0;i<canciones.length;i++){
-            if(canciones[i].album.images.length != 0){
-                UICtrl.createSongDetail(canciones,i);
+        for (var i = 0; i < canciones.length; i++) {
+            if (canciones[i].album.images.length != 0) {
+                UICtrl.createSongDetail(canciones, i,token);
             }
         }
     });
@@ -354,7 +367,7 @@ const APPController = (function(UICtrl, APICtrl) {
         const track = await APICtrl.getTrack(token, trackEndpoint);
         // load the track details
         UICtrl.createTrackDetail(track.album.images[2].url, track.name, track.artists[0].name);
-    }); 
+    });
 
     return {
         init() {
