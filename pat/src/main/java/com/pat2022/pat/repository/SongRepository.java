@@ -14,6 +14,6 @@ public interface SongRepository extends CrudRepository<SongModel,String>{
     public Iterable <SongModel> getSongById(String songId);
 
     @Modifying
-    @Query("INSET INTO SONG (SONG_ID,SONG_NAME,SONG_ARTIST,SONG_ALBUM,SONG_DURATION) VALUES (:songId, :songName, :songArtist, :songAlbum, :songDuration)")
+    @Query("INSERT INTO SONG (SONG_ID,SONG_NAME,SONG_ARTIST,SONG_ALBUM,SONG_DURATION) VALUES (:songId, :songName, :songArtist, :songAlbum, :songDuration)")
     public void createSong(String songId, String songName, String songArtist, String songAlbum, int songDuration);
 }

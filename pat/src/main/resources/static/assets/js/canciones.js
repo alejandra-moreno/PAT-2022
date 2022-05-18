@@ -180,7 +180,9 @@ const UIController = (function () {
 
             const cancion = JSON.stringify(songs[index]);
 
-
+            let titulo = songs[index].name.replace(/'/g, '’');
+            let artista = songs[index].artists[0].name.replace(/'/g, '’');
+            let album = songs[index].album.name.replace(/'/g, '’');
 
             const detailDiv = document.querySelector('#cancion-detail');
             html =
@@ -190,7 +192,7 @@ const UIController = (function () {
                     <img src="${songs[index].album.images[0].url}" alt="" style="height: 25rem;width: 25rem;"> 
                     <p class="form-label col-sm-12 mt-3"><b>${songs[index].name}</b></p>
                     <div class="col-5 my-4 py-1">
-                        <button onclick = "getFav('${index}','${songs[index].href}','${songs[index].name}','${songs[index].artists[0].name}','${songs[index].album.name}','${songs[index].duration_ms}')" type="button" id="btn_cancionfav" class="btn btn-success col-sm-12">Añadir a favoritos</button>
+                        <button onclick = "getFav('${index}','${songs[index].href}','${titulo}','${artista}','${album}','${songs[index].duration_ms}')" type="button" id="btn_cancionfav" class="btn btn-success col-sm-12">Añadir a favoritos</button>
                     </div>
                 </div>
                 <div class="col-7 pt-3 mb-4 mt-4">
@@ -280,9 +282,49 @@ const UIController = (function () {
 
 getFav = async (index, song_id, song_name, song_artist, song_album, song_duration) => {
     console.log("Prueba marcar favorito:")
-    console.log(index, song_id+"\n Nombre="+song_name+"\n Artista="+song_artist+"\n Album="+song_album+"\n Duración="+song_duration);
+    console.log(index)
+    
+let request = await fetch("/api/v1/song", {
+    method : "POST",
+    credentials: "same-origin", 
+    headers: { 
+        "Content-Type": "application/json"  
+        },
+        body: JSON.stringify({
+            songId : song_id,
+            songName : song_name,
+            songArtist : song_artist,
+            songAlbum : song_album,
+            songDuration : parseInt(song_duration)*0.0000166667,
+        }),
+        dataType: "json"
+    }).catch(console.error);
+    if(request.ok) {
+        console.log("Success!");
+    }
+
+    usuario = "blancadepedr";
+
+    let fav = await fetch("/api/v1/favourites", {
+        method : "POST",
+        credentials: "same-origin", 
+        headers: { 
+            "Content-Type": "application/json"  
+            },
+            body: JSON.stringify({
+                userId : usuario,
+                favId : song_id,
+                tipo : "cancion",
+            }),
+            dataType: "json"
+        }).catch(console.error);
+        if(request.ok) {
+            console.log("Success!");
+        }
 
 }
+
+
 
 const APPController = (function (UICtrl, APICtrl) {
 

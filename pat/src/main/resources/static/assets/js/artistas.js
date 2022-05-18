@@ -91,7 +91,6 @@ const APIController = (function() {
         });
 
         const respuesta = await result.json();
-        console.log(respuesta.items);
         return respuesta;
     }
 
@@ -191,6 +190,9 @@ const UIController = (function() {
 
         // need method to create the artist detail
         createArtistDetail(artists, albums, index) {
+
+            let titulo = artists[index].name.replace(/'/g, '’');
+            
             const detailDiv = document.querySelector('#artist-detail');
             html = 
             `
@@ -199,7 +201,7 @@ const UIController = (function() {
                     <img src="${artists[index].images[0].url}" alt="" style="height: 25rem;width: 25rem;"> 
                     <p class="form-label col-sm-12 mt-3 my-3"><b>${artists[index].name}</b></p>
                     <div class="col-5 my-4 py-1">
-                        <button onclick = "getFav('${index}','${artists[index].href}','${artists[index].name}','${artists[index].images[0].url}','${artists[index].genres}','${artists[index].followers.total}')" type="submit" id="btn_artistafav" class="btn btn-success col-sm-12">Añadir a favoritos</button>
+                        <button onclick = "getFav('${index}','${artists[index].href}','${titulo}','${artists[index].images[0].url}','${artists[index].genres}','${artists[index].followers.total}')" type="submit" id="btn_artistafav" class="btn btn-success col-sm-12">Añadir a favoritos</button>
                     </div>
                 </div>
                 <div class="col-4 pt-3 mb-4 mt-4">
@@ -283,7 +285,43 @@ const UIController = (function() {
 getFav = async (index, artist_id, artist_name, artist_image, artist_genres, artist_followers) => {
     console.log("Prueba marcar favorito:")
     console.log(index, artist_id+"\n Nombre="+artist_name+"\n Imagen url="+artist_image+"\n Géneros="+artist_genres+"\n Seguidores="+artist_followers);
-
+    let request = await fetch("/api/v1/artist", {
+        method : "POST",
+        credentials: "same-origin", 
+        headers: { 
+            "Content-Type": "application/json"  
+            },
+            body: JSON.stringify({
+                artistId : artist_id,
+                artistName : artist_name,
+                artistImage : artist_image,
+                artistGenres : artist_genres,
+                artistFollowers : parseInt(artist_followers),
+            }),
+            dataType: "json"
+        }).catch(console.error);
+        if(request.ok) {
+            console.log("Success!");
+        }
+    
+        usuario = "blancadepedr";
+    
+        let fav = await fetch("/api/v1/favourites", {
+            method : "POST",
+            credentials: "same-origin", 
+            headers: { 
+                "Content-Type": "application/json"  
+                },
+                body: JSON.stringify({
+                    userId : usuario,
+                    favId : artist_id,
+                    tipo : "artista",
+                }),
+                dataType: "json"
+            }).catch(console.error);
+            if(request.ok) {
+                console.log("Success!");
+            }
 }
 
 const APPController = (function(UICtrl, APICtrl) {

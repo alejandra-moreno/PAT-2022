@@ -1,14 +1,10 @@
 package com.pat2022.pat.service.implementation;
 
-import java.util.List;
-
 import com.pat2022.pat.model.SongModel;
 import com.pat2022.pat.repository.SongRepository;
 import com.pat2022.pat.service.SongService;
-import com.pat2022.pat.service.dto.FavouritesJoinDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +13,7 @@ public class SongImpl implements SongService{
     @Autowired
     private SongRepository songRepository;
 
-    
+    @Override
     public Iterable<SongModel> getSong() {
         
         return songRepository.findAll();

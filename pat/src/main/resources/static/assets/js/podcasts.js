@@ -176,6 +176,10 @@ const UIController = (function() {
         // need method to create the podcast detail
         createPodcastDetail(shows, index) {
 
+            let titulo = shows[index].name.replace(/'/g, '’');
+            let publisher = shows[index].publisher.replace(/'/g, '’');
+            let descripccion = shows[index].description.replace(/'/g, '’');
+
             const detailDiv = document.querySelector('#podcast-detail');
             html = 
             `
@@ -184,7 +188,7 @@ const UIController = (function() {
                     <img src="${shows[index].images[0].url}" alt="" style="height: 25rem;width: 25rem;"> 
                     <p class="form-label col-sm-12 mt-3"><b>${shows[index].name}</b></p>
                     <div class="col-5 my-4 py-1">
-                        <button onclick = "getFav('${index}','${shows[index].href}','${shows[index].name}','${shows[index].publisher}','${shows[index].description}','${shows[index].images[0].url}',${shows[index].total_episodes})" type="submit" id="btn_podcastfav" class="btn btn-success col-sm-12">Añadir a favoritos</button>
+                        <button onclick = "getFav('${index}','${shows[index].href}','${titulo}','${publisher}','${descripccion}','${shows[index].images[0].url}',${shows[index].total_episodes})" type="submit" id="btn_podcastfav" class="btn btn-success col-sm-12">Añadir a favoritos</button>
                     </div>
                 </div>
                 <div class="col-7 pt-3 mb-4 mt-4">
@@ -230,6 +234,45 @@ const UIController = (function() {
 getFav = async (index, episode_id, episode_name, episode_publisher, episode_description, episode_image, episode_tracks) => {
     console.log("Prueba marcar favorito:")
     console.log(index, episode_id+"\n Nombre="+episode_name+"\n Publicado por="+episode_publisher+"\n Descripción="+episode_description+"\n Imagen url="+episode_image+"\n Tracks="+episode_tracks);
+       
+let request = await fetch("/api/v1/episode", {
+    method : "POST",
+    credentials: "same-origin", 
+    headers: { 
+        "Content-Type": "application/json"  
+        },
+        body: JSON.stringify({
+            episodeId : episode_id,
+            episodeName : episode_name,
+            episodePublisher : episode_publisher,
+            episodeDescription : episode_description,
+            episodeImage : episode_image,
+            episodeTracks : parseInt(episode_tracks),
+        }),
+        dataType: "json"
+    }).catch(console.error);
+    if(request.ok) {
+        console.log("Success!");
+    }
+
+    usuario = "blancadepedr";
+
+    let fav = await fetch("/api/v1/favourites", {
+        method : "POST",
+        credentials: "same-origin", 
+        headers: { 
+            "Content-Type": "application/json"  
+            },
+            body: JSON.stringify({
+                userId : usuario,
+                favId : episode_id,
+                tipo : "podcast",
+            }),
+            dataType: "json"
+        }).catch(console.error);
+        if(request.ok) {
+            console.log("Success!");
+        }
 
 }
 

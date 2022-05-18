@@ -78,10 +78,10 @@ public class UserE2ETest {
     @Test
     public void userPutTest(){
 
-        UserModel user = userService.getUserById("blancadepedr");
+        UserModel user = userService.getUserById("usuarioActualizar");
         user.setUserEmail("nuevo@gamil.com");
 
-        String url = "http://localhost:"+Integer.toString(port)+"/api/v1/users/blancadepedr";
+        String url = "http://localhost:"+Integer.toString(port)+"/api/v1/users/usuarioActualizar";
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<UserModel> entity = new HttpEntity<>(user,headers);
 
@@ -101,9 +101,9 @@ public class UserE2ETest {
     @Test
     public void userDeleteTest(){
 
-        UserModel user = userService.getUserById("blancadepedr");
+        UserModel user = userService.getUserById("usuarioEliminar");
 
-        String url = "http://localhost:"+Integer.toString(port)+"/api/v1/users/blancadepedr";
+        String url = "http://localhost:"+Integer.toString(port)+"/api/v1/users/usuarioEliminar";
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<UserModel> entity = new HttpEntity<>(user,headers);
 
