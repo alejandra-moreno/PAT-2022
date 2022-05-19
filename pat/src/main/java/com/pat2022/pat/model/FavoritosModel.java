@@ -1,12 +1,9 @@
 package com.pat2022.pat.model;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 @Table("FAVOURITE")
 public class FavoritosModel {
 
@@ -68,6 +65,9 @@ public class FavoritosModel {
         result = prime * result + ((favId == null) ? 0 : favId.hashCode());
         result = prime * result + ((userId == null) ? 0 : userId.hashCode());
         return result;
+    }
+
+    public FavoritosModel() {
     }
 
     

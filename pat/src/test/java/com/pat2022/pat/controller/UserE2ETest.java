@@ -1,7 +1,5 @@
 package com.pat2022.pat.controller;
 
-
-
 import com.pat2022.pat.model.UserModel;
 import com.pat2022.pat.service.UserService;
 
@@ -49,6 +47,27 @@ public class UserE2ETest {
         then(result.getStatusCode()).isEqualTo(HttpStatus.OK);
         then(result.getBody()).isEqualTo(users);
     }
+
+    @Test
+    public void userByIdGetTest(){
+        String userId = "blancadepedr";
+        UserModel user = userService.getUserById(userId);
+
+        String url = "http://localhost:"+Integer.toString(port)+"/api/v1/users/"+userId;
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<UserModel> result = restTemplate.exchange(
+            url,
+            HttpMethod.GET,
+            entity,
+            new ParameterizedTypeReference<UserModel>() {}
+        );
+
+        then(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+        then(result.getBody()).isEqualTo(user);
+    }
+
     @Test
     public void userPostTest(){
 
@@ -82,6 +101,29 @@ public class UserE2ETest {
         user.setUserEmail("nuevo@gamil.com");
 
         String url = "http://localhost:"+Integer.toString(port)+"/api/v1/users/usuarioActualizar";
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<UserModel> entity = new HttpEntity<>(user,headers);
+
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        
+        ResponseEntity<UserModel> result = restTemplate.exchange(
+            url,
+            HttpMethod.PUT,
+            entity,
+            new ParameterizedTypeReference<UserModel>() {}
+        );
+
+        then(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+        
+    }
+
+    @Test
+    public void userPaswordPutTest(){
+
+        UserModel user = userService.getUserById("usuarioActualizar");
+        user.setUserPassword("nuevoPassword");
+
+        String url = "http://localhost:"+Integer.toString(port)+"/api/v1/users/usuarioActualizar/nuevoPassword";
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<UserModel> entity = new HttpEntity<>(user,headers);
 

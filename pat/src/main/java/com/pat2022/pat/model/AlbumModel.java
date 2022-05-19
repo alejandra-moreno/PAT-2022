@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 @Table("ALBUM")
 
 public class AlbumModel {
@@ -67,5 +66,8 @@ public class AlbumModel {
 
     public void setAlbumTracks(int albumTracks) {
         this.albumTracks = albumTracks;
+    }
+
+    public AlbumModel() {
     }
 }

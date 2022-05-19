@@ -2,11 +2,7 @@ package com.pat2022.pat.service;
 
 import java.util.List;
 
-import com.pat2022.pat.model.AlbumModel;
-import com.pat2022.pat.model.ArtistModel;
-import com.pat2022.pat.model.EpisodeModel;
 import com.pat2022.pat.model.FavoritosModel;
-import com.pat2022.pat.model.SongModel;
 import com.pat2022.pat.service.dto.AlbumDTO;
 import com.pat2022.pat.service.dto.ArtistDTO;
 import com.pat2022.pat.service.dto.EpisodeDTO;

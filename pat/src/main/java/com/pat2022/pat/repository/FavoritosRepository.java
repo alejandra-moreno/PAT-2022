@@ -15,11 +15,11 @@ public interface FavoritosRepository extends CrudRepository<FavoritosModel,Strin
     public void createFav(String userId, String favId, String tipo);
 
     
-    @Query("SELECT * FROM FAVOURITE WHERE FAVOURITE.USER_ID = : userId AND  FAVOURITE.FAV_ID = : favId")
+    @Query("SELECT * FROM FAVOURITE WHERE FAVOURITE.USER_ID = :userId AND FAVOURITE.FAV_ID = :favId")
     public FavoritosModel getFavById(String userId, String favId);
 
     @Modifying
-    @Query("DELETE FROM FAVOURITE WHERE FAVOURITE.USER_ID = : userId AND  FAVOURITE.FAV_ID = : favId")
+    @Query("DELETE FROM FAVOURITE WHERE FAVOURITE.USER_ID = :userId AND  FAVOURITE.FAV_ID = :favId")
     public void deleteFav(String userId, String favId);
 
     

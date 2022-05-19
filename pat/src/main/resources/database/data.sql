@@ -2,6 +2,12 @@ INSERT INTO USER VALUES ('blancadepedr','Blanca','{noop}password','blancadepedr@
 INSERT INTO USER VALUES ('usuarioEliminar','user','password','prueba@gmail.com',20);
 INSERT INTO USER VALUES ('usuarioActualizar','user','password','prueba@gmail.com',20);
 INSERT INTO SONG VALUES('ID','NAME','ARTIST','ALBUM',1);
+INSERT INTO SONG VALUES('eliminarId','NAME1','ARTIST1','ALBUM1',11);
 INSERT INTO ALBUM VALUES('ID','NAME','ARTIST','DATE','IMAGE',10);
+INSERT INTO ALBUM VALUES('eliminarId','NAME1','ARTIST1','DATE1','IMAGE1',101);
 INSERT INTO ARTIST VALUES('ID','NAME','IMAGE','GENRES',100); 
+INSERT INTO ARTIST VALUES('eliminarId','NAME1','IMAGE1','GENRES1',101); 
 INSERT INTO EPISODE VALUES('ID','NAME','P','D','I',89);
+INSERT INTO EPISODE VALUES('eliminarId','NAME1','P1','D1','I1',89);
+INSERT INTO SONG VALUES('deleteIDSONG','NAME','ARTIST','ALBUM',1);
+INSERT INTO FAVOURITE VALUES('usuarioEliminar','deleteIDSONG','song');

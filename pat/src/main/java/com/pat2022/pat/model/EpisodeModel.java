@@ -8,7 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 @Table("EPISODE")
 
 public class EpisodeModel {
@@ -68,6 +67,9 @@ public class EpisodeModel {
 
     public void setEpisodeTracks(int episodeTracks) {
         this.episodeTracks = episodeTracks;
+    }
+
+    public EpisodeModel() {
     }
 
 }

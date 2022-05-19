@@ -112,8 +112,8 @@ public class FavoritosImpl implements FavoritosService{
                 rs.getString("ALBUM_NAME"),
                 rs.getString("ALBUM_ARTIST"),
                 rs.getString("ALBUM_DATE"),
-                rs.getString("ARTIST_GENRES"),
-                rs.getInt("ARTIST_FOLLOWERS")
+                rs.getString("ALBUM_IMAGE"),
+                rs.getInt("ALBUM_TRACKS")
             )
         );
         return joinList;
@@ -131,8 +131,8 @@ public class FavoritosImpl implements FavoritosService{
                 rs.getString("ALBUM_NAME"),
                 rs.getString("ALBUM_ARTIST"),
                 rs.getString("ALBUM_DATE"),
-                rs.getString("ARTIST_GENRES"),
-                rs.getInt("ARTIST_FOLLOWERS")
+                rs.getString("ALBUM_IMAGE"),
+                rs.getInt("ALBUM_TRACKS")
             )
         );
         return joinList;

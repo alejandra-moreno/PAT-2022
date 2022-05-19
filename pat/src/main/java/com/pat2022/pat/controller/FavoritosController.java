@@ -46,7 +46,7 @@ public class FavoritosController {
         }
     }
 
-    @DeleteMapping("/favourites")
+    @DeleteMapping("/favourites/{userId}/{favId}")
     public ResponseEntity<FavoritosModel> deleteSong(@PathVariable String userId, @PathVariable String favId){
         favoritosService.deleteFav(userId, favId);
         return ResponseEntity.noContent().build();

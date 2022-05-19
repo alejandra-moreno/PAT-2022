@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 @Table("ARTIST")
 
 
@@ -59,6 +58,9 @@ public class ArtistModel {
 
     public void setArtistFollowers(int artistFollowers) {
         this.artistFollowers = artistFollowers;
+    }
+
+    public ArtistModel() {
     }
 
 }
