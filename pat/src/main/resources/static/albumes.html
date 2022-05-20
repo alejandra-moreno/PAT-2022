@@ -9,9 +9,8 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <!-- Icons -->
+  <link href="assets/img/spotify-icon.png" rel="shortcut icon" type="image/x-icon">
   
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -36,9 +35,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
       <div class="logo">
-        <h1 class="text-light"><a href="index.html">Spotify</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        <a href="index.html"><img src="assets/img/spotify-banner.png" alt="" class="img-fluid"></a>
       </div>
 
       <nav id="navbar" class="navbar">
@@ -53,10 +50,10 @@
             </ul>
           </li>
           <li><a href="services.html">Servicios</a></li>
-          <li><a href="portfolio.html">Iniciar sesión</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="pricing.html">Suscripciones</a></li>
+          <li><a href="login.html">Iniciar sesión</a></li>           
           <li><a href="blog.html">Registrarse</a></li>
-
-          <li><a class="getstarted" href="about.html">Get Started</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -66,20 +63,30 @@
 
   <main id="main">
 
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+        <ol>
+          <li><a href="index.html">Inicio</a></li>
+          <li>Álbumes</li>
+        </ol>
+      </div>
+    </section><!-- End Breadcrumbs -->
+
     <!-- ======= Features Section ======= -->
-    <div class="form-control" id="prueba">
+    <div class="form-control" id="prueba" style="display: none;">
         <form class="row mb-2 px-5 my-5" action="">
             <input type="hidden" id='hidden_token'>
             <div class="col-3 form-group  px-1">
                 <label for="Genre" class="form-label col-sm-2">Género:</label>
                 <select name="" id="select_genre" class="form-control form-control col-6">
-                    <option>Select...</option>                    
+                    <option>Seleccionar...</option>                    
                 </select>
             </div>
             <div class="col-3 form-group  px-1">
                 <label for="Genre" class="form-label col-sm-6">Playlists:</label>
                 <select name="" id="select_playlist" class="form-control form-control col-6">
-                    <option>Select...</option>                    
+                    <option>Seleccionar...</option>                    
                 </select>
             </div>                  
             <div class="col-2 my-3 py-4 form-group">
@@ -99,8 +106,8 @@
     
     <!-- ======= Features Section ======= -->
     <div class="form-control">
-      <div class="row pb-2 my-4" id="album">
-          <div class="col-sm-6 mb-6 mb-sm-0">
+      <div class="row pb-2 my-5 py-4" id="album">
+          <div class="col-sm-6 mb-6 mb-sm-0 mx-5">
               <input type="text" class="form-control form-control-user" id="albumId"
                   placeholder="Introduzca el nombre del álbum..." required>
           </div>
@@ -117,47 +124,44 @@
     <div class="footer-top">
       <div class="container">
         <div class="row">
-
           <div class="col-lg-3 col-md-6 footer-info">
-            <h3>Serenity</h3>
-            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc congue.</p>
+            <h3>Spotify</h3>
           </div>
-
+          
           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Useful Links</h4>
+            <h4>Links útiles</h4>
             <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">About us</a></li>
-              <li><a href="#">Services</a></li>
-              <li><a href="#">Terms of service</a></li>
-              <li><a href="#">Privacy policy</a></li>
+              <li><a href="https://artists.spotify.com/es">Artistas</a></li>
+              <li><a href="https://developer.spotify.com/">Desarrolladores</a></li>
+              <li><a href="https://ads.spotify.com/es-ES/">Anunciantes</a></li>
+              <li><a href="https://www.spotify.com/es/legal/end-user-agreement/">Términos y condiciones de uso</a></li>
+              <li><a href="https://www.spotify.com/es/legal/privacy-policy/">Política de privacidad</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-contact">
-            <h4>Contact Us</h4>
+            <h4>Contáctanos</h4>
             <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
+              Regeringsgatan 19 <br>
+              Estocolmo, SE-111 53<br>
+              Suecia <br>
+              <strong>Teléfono:</strong> 556703-7485<br>
+              <strong>Email:</strong> office@spotify.com<br>
             </p>
 
             <div class="social-links">
-              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              <a href="https://twitter.com/spotify" class="twitter"><i class="bi bi-twitter"></i></a>
+              <a href="https://www.facebook.com/Spotify" class="facebook"><i class="bi bi-facebook"></i></a>
+              <a href="https://www.instagram.com/spotify/" class="instagram"><i class="bi bi-instagram"></i></a>
             </div>
 
           </div>
 
           <div class="col-lg-3 col-md-6 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna veniam enim veniam illum dolore legam minim quorum culpa amet magna export quem marada parida nodela caramase seza.</p>
+            <h4>Nuestra Newsletter</h4>
+            <p>Déjanos tu email y sé el primero en recibir todas las novedades y noticias de Spotify.</p>
             <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
+              <input type="email" name="email"><input type="submit" value="Suscribirse">
             </form>
           </div>
 
@@ -167,14 +171,10 @@
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Serenity</span></strong>
+        &copy; Copyright <strong><span>Spotify</span></strong>. Todos los derechos reservados
       </div>
       <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/serenity-bootstrap-corporate-template/ -->
-        Creado por <a href="https://bootstrapmade.com/">Alejandra Moreno y Blanca de Pedro</a>
+        Diseñado con <a href="https://bootstrapmade.com/">BootstrapMade</a>
       </div>
     </div>
   </footer><!-- End Footer -->
