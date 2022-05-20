@@ -33,7 +33,7 @@ public class ArtistController {
     }
 
     @PostMapping("/artist")
-    public ResponseEntity<String> createArtistById(@RequestBody ArtistModel artist, BindingResult bindingResult){
+    public ResponseEntity<String> createArtistById(@RequestBody ArtistModel artist, BindingResult bindingResult) throws Exception{
         if(bindingResult.hasErrors()){
             return new ResponseEntity<String>("{\"result\" : \"KO\"}", HttpStatus.BAD_REQUEST);
         }else{

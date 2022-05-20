@@ -303,7 +303,8 @@ let request = await fetch("/api/v1/song", {
         console.log("Success!");
     }
 
-    usuario = "blancadepedr";
+    usuario = sessionStorage.getItem("userId");
+    console.log(usuario);
 
     let fav = await fetch("/api/v1/favourites", {
         method : "POST",

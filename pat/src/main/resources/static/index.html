@@ -51,10 +51,26 @@
           <li><a href="services.html">Servicios</a></li>
           <li><a href="portfolio.html">Portfolio</a></li>
           <li><a href="pricing.html">Suscripciones</a></li>
-          <li><a href="login.html">Iniciar sesión</a></li>          
-          <li><a href="register.html">Registrarse</a></li>
+          <li id="login"><a href="login.html">Iniciar sesión</a></li>            
+          <li id="register"><a href="register.html">Registrarse</a></li>
+          <li id="logout" onclick="cerrarSesion()"><a href="">Cerrar sesión</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
+        <script>
+            if(sessionStorage.getItem("userId")=="" || sessionStorage.getItem("userId")==null){
+              document.getElementById("login").style.visibility = "visible";
+              document.getElementById("register").style.visibility = "visible";
+              document.getElementById("logout").style.visibility = "hidden";
+              
+            }else{
+              document.getElementById("logout").style.visibility = "visible";
+              document.getElementById("register").style.visibility = "hidden";
+              document.getElementById("login").style.visibility = "hidden";
+            }
+            function cerrarSesion() {
+              sessionStorage.removeItem("userId");
+            }
+          </script>
       </nav><!-- .navbar -->
     </div>
   </header><!-- End Header -->

@@ -34,7 +34,7 @@ public class SongController {
     }
 
     @PostMapping("/song")
-    public ResponseEntity<String> createSongById(@RequestBody SongModel song, BindingResult bindingResult){
+    public ResponseEntity<String> createSongById(@RequestBody SongModel song, BindingResult bindingResult) throws Exception{
         if(bindingResult.hasErrors()){
             return new ResponseEntity<String>("{\"result\" : \"KO\"}", HttpStatus.BAD_REQUEST);
         }else{

@@ -24,8 +24,9 @@ submitbtn.addEventListener("click",
       data = await request.json();
       
       for(let i=0; i<data.length;i++){
-          if((data[i].userId == usuario && data[i].userPassword == contraseña) || data[i].userEmail == usuario && data[i].userPassword == contraseña){
-                window.location.href = "./index.html";
+          if(data[i].userId == usuario && data[i].userPassword == contraseña){
+              sessionStorage.setItem("userId",data[i].userId);
+              window.location.href = "./index.html";
           }else{
             text = "La contraseña o el usuario son incorrectos";
             error.innerHTML = text;

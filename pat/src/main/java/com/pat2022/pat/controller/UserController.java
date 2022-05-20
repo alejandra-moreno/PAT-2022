@@ -6,6 +6,7 @@ import com.pat2022.pat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
     @GetMapping("/users")
     public ResponseEntity<Iterable<UserModel>>retriveUsers(){
 
@@ -37,9 +40,9 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<String> createUserById(
+    public ResponseEntity<String> createUserById (
         @RequestBody UserModel user,
-        BindingResult bindingResult){
+        BindingResult bindingResult) throws Exception{
             if(bindingResult.hasErrors()){
                 return new ResponseEntity<String>("{\"result\" : \"KO\"}", HttpStatus.BAD_REQUEST);
             }else{
@@ -77,4 +80,5 @@ public class UserController {
         return ResponseEntity.ok().body(newUser);
          
     }
+
 }

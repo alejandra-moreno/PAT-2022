@@ -36,7 +36,7 @@ public class AlbumController {
     }
 
     @PostMapping("/album")
-    public ResponseEntity<String> createAlbumById(@RequestBody AlbumModel album,BindingResult bindingResult){
+    public ResponseEntity<String> createAlbumById(@RequestBody AlbumModel album,BindingResult bindingResult) throws Exception{
         if(bindingResult.hasErrors()){
             return new ResponseEntity<String>("{\"result\" : \"KO\"}", HttpStatus.BAD_REQUEST);
         }else{

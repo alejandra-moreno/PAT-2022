@@ -34,7 +34,7 @@ public class EpisodeController {
     }
 
     @PostMapping("/episode")
-    public ResponseEntity<String> createEpisodeById(@RequestBody EpisodeModel episode, BindingResult bindingResult){
+    public ResponseEntity<String> createEpisodeById(@RequestBody EpisodeModel episode, BindingResult bindingResult) throws Exception{
         if(bindingResult.hasErrors()){
             return new ResponseEntity<String>("{\"result\" : \"KO\"}", HttpStatus.BAD_REQUEST);
         }else{

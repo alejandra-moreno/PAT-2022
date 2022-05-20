@@ -1,4 +1,4 @@
-INSERT INTO USER VALUES ('blancadepedr','Blanca','{noop}password','blancadepedr@gmail.com',20);
+INSERT INTO USER VALUES ('blancadepedr','Blanca','password','blancadepedr@gmail.com',20);
 INSERT INTO USER VALUES ('usuarioEliminar','user','password','prueba@gmail.com',20);
 INSERT INTO USER VALUES ('usuarioActualizar','user','password','prueba@gmail.com',20);
 INSERT INTO SONG VALUES('ID','NAME','ARTIST','ALBUM',1);
