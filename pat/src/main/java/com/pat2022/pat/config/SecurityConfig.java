@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,7 +23,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig  extends WebSecurityConfigurerAdapter{
     @Autowired
     private UserService userService;
-
 
     @Bean //Permanece en memoria
     public PasswordEncoder passwordEncoder() {
@@ -42,28 +42,21 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 
     @Override
     public void configure(HttpSecurity http) throws Exception{
-        http
-            .authorizeRequests()
-                .antMatchers("/api/v1/song","/api/v1/song/**").permitAll()
-                .antMatchers("/api/v1/episode","/api/v1/episode/**").permitAll()
-                .antMatchers("/api/v1/artist","/api/v1/artist/**").permitAll()
-                .antMatchers("/api/v1/album","/api/v1/album/**").permitAll()
-                .antMatchers("/api/v1/users","/api/v1/users/**").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/register").permitAll()
-                .antMatchers("/index").permitAll()
-                //.anyRequest().authenticated()
+        http.formLogin()
+                    .defaultSuccessUrl("/auth/login")
+                    .and()
+            .authorizeHttpRequests()
+            .antMatchers("/albumes.html","/artistas.html","/canciones.html","/podcasts.html").authenticated()
+                    .anyRequest().permitAll()
+                    .and()
+                    .httpBasic()
             .and()
-            
-            .httpBasic()
-            .and()
-            .cors().and().csrf().disable();
+            .csrf().disable();
 
     }
-    
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
-        
     }
+    
 }
