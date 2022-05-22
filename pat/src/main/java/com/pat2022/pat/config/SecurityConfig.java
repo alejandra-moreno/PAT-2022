@@ -46,7 +46,6 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
                     .defaultSuccessUrl("/auth/login")
                     .and()
             .authorizeHttpRequests()
-            .antMatchers("/albumes.html","/artistas.html","/canciones.html","/podcasts.html").authenticated()
                     .anyRequest().permitAll()
                     .and()
                     .httpBasic()

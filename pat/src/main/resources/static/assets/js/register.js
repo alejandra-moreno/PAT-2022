@@ -1,24 +1,3 @@
-//BORRAR USUARIO
-let borrar_boton = document.getElementById("btnEliminar");
-
-const deleteUser=async ()=>{
-    let usuarioInput=document.getElementById("exampleId").value;
-
-    console.log(usuarioInput);
-
-    let request=await fetch("/api/v1/users/"+usuarioInput, {
-        method: "DELETE",
-        credentials: "same-origin",
-        dataType:"json",
-    }).catch(console.error);
-    
-    if(request.ok){
-        console.log("El usuario ha sido borrado");
-    }
-}
-
-borrar_boton.addEventListener("click",(deleteUser));
-
 //REGISTRAR/CREAR USUARIO
 let submitbtn = document.getElementById("btnRegistro");
 submitbtn.addEventListener("click",
@@ -76,46 +55,7 @@ submitbtn.addEventListener("click",
 
   if(request.ok) {
       console.log("Success!");
-      sessionStorage.setItem("userId",idI);
       window.location.href = "./index.html";
     }
   })
 );
-
-
-//ACTUALIZAR INFO REGISTRO
-
-let actualizar_boton = document.getElementById("btnActualizar");
-
-const actualizarInfo = async() => {
-
-    let nombreI = document.getElementById("exampleFirstName").value;
-    let idI = document.getElementById("exampleId").value;
-    let emailI = document.getElementById("exampleInputEmail").value;
-    let edadI = document.getElementById("exampleAge").value;      
-    let contraseñaI = document.getElementById("exampleInputPassword").value;
-
-    console.log(idI);
-
-    let request = await fetch("/api/v1/users/"+idI, {
-      method : "PUT",
-      credentials: "same-origin", 
-      headers: { 
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-          userId : idI,
-          userName : nombreI,
-          userPassword : contraseñaI,
-          userEmail : emailI,
-          userAge : parseInt(edadI),
-      }),
-          dataType: "json",
-      }).catch(console.error);
-
-      if(request.ok) {
-        console.log("Success!");
-      }
-}
-
-actualizar_boton.addEventListener("click",(actualizarInfo));

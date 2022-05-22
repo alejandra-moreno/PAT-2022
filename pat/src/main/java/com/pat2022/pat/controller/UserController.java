@@ -24,8 +24,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
     
     @GetMapping("/users")
     public ResponseEntity<Iterable<UserModel>>retriveUsers(){
@@ -69,7 +67,6 @@ public class UserController {
 
     
 
-    //Actualizar la contraseña
     @PutMapping("/users/{userId}")
     public ResponseEntity<UserModel> updateUser(@PathVariable String userId, @RequestBody UserModel user){
         
