@@ -1,6 +1,7 @@
 # Práctica Final Programación de Aplicaciones Telemáticas
 
-Práctica desarrollada por Alejandra Moreno y Blanca de Pedro. 
+*Desarrollada por Alejandra Moreno y Blanca de Pedro*
+
 Para la realización de la práctica se ha utilizado la API de Spotify, de la cual se ha obtenido información sobre artistas, sus álbumes y canciones, y podcasts. Dicha información será manipulada por el usuario a su gusto a lo largo de la web mediante los métodos PUT, POST, DELETE y GET. El usuario podrá acceder a su perfil personal, donde encontrará toda su información, desde los datos de registro hasta la información relacionada con Spotify, sin embargo tendrá que autentificarse para poder visualizarla.
 
 
