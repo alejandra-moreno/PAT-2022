@@ -23,6 +23,7 @@ Nota: el nombre y el usuario no son el mismo campo, a lo largo de la aplicación
 La página web está compuesta por doce vistas: 
 
 - Index.html: Es la página principal y desde la cual se puede acceder a cualquier otra página. Tiene un menú en la parte superior que cambia en función de si está dado de alta o no:
+
 -- Si no se ha registrado aun o no ha iniciado sesión le saldrá:
 
 ![image](https://user-images.githubusercontent.com/78315378/169791998-d94b25be-bd45-46e8-886b-4b06297b9306.png)
