@@ -95,7 +95,38 @@ Para el desarrollo de esta aplicación web se ha hecho uso de la API oficial de 
 # Testing y Seguridad
 
 ## Pruebas Unitarias
+Las pruebas unitarias son una forma de comprobar que un fragmento de código funciona correctamente. En este caso, se han realizado tests de los métodos usados en las clases Service, ya que éstos interactúan con la base de datos y es importante comprobar que no hay errores.
+
+Mediante la sentencia *assertEquals()* se han probado los métodos *getXById()* y *deleteX()* en las clases ArtistService, AlbumService, SongService, EpisodeService, UserService y FavoritosService. Adicionalmente, se ha verificado el funcionamiento de las funciones *updateUser()* y *updatePassword()* de la clase UserService.
 ## End to End
+
+E2E son una metodología de pruebas de software que consiste en probar una aplicación desde el punto de vista del usuario final. Este tipo de pruebas nos permiten encontrar errores en el interfaz de usuario y comprobar el correcto funcionamiento de los flujos y procesos. 
+
+En este proyecto se han creado 6 archivos para este tipo de pruebas: UserE2ETest, SongE2ETest, AlbumE2ETest, ArtistE2ETest, EpisodeE2ETest y FavoritosE2ETest. En todos ellos se verifican varios métodos que hacen uso de los verbos GET, POST, PUT y DELETE.
+
+La siguiente imagen viene a demostrar que todas las pruebas realizadas en el código se ejecutan de forma correcta:
+![Capture](https://user-images.githubusercontent.com/71815685/169802106-63c52cdd-26d3-4944-8b62-c8fdb51b1627.JPG)
+
 ## Testing
 
+Con respecto al Security Testing, se ha podido comprobar que al intentar entrar en el perfil del usuario (*profile*)  aparece la siguiente pantalla:
+
+![WhatsApp Image 2022-05-23 at 12 11 55 PM](https://user-images.githubusercontent.com/71815685/169801544-6bc48790-f973-4ca2-8ae3-30b60a14fd67.jpeg)
+
+Esto es debido a que esa página contiene información personal a la que sólo se podrá acceder introduciendo las credenciales correctas. En caso contrario, se muestra el siguiente mensaje de error:
+
+![WhatsApp Image 2022-05-23 at 12 12 30 PM](https://user-images.githubusercontent.com/71815685/169801525-d38f38aa-a595-4d7c-9d76-96a78f10c844.jpeg)
+
+
 # Dependencias
+Finalmente, se explica brevemente cuáles son las dependencias incluidas en el fichero *pom.xml* y su utilidad.
+
+- **Lombok**: es una librería Java que permite eliminar el código repetitivo y permite generar los getters, los setters, los Logs, el toString,… con una anotación.
+- **H2**: es un sistema administrador de bases de datos relacionales programado en Java.
+-   **Spring Boot Actuator**: es una librería que nos proporciona herramientas de monitorización y administración de nuestra API REST de manera sencilla.
+-   **Spring Boot JDBC**: se utiliza para realizar consultas SQL a una base de datos.
+-  **Spring Boot DevTools**: es la herramienta de Spring Boot que nos permite reiniciar de forma automática nuestras aplicaciones cada vez que se produce un cambio en nuestro código.
+-  **Spring Boot Starter Validation**: usa el marco de trabajo Hibernate Validator para proporcionar validación de Java Bean.
+- **Spring Boot Starter Test**: añade las funcionalidades que necesitamos para realizar tareas de testing en nuestra aplicación.
+- **Spring Boot Starter Security**: es el módulo del proyecto Spring para incorporar seguridad de acceso a las aplicaciones hechas con Spring Boot.
+- **Spring Boot Thymeleaf**: es uno de los *starters* de Spring Boot más típicos cuando construimos una aplicación web.
