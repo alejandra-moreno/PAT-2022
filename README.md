@@ -66,7 +66,9 @@ Para el desarrollo de esta aplicación web se ha hecho uso de la API oficial de 
 
 --**Álbum** 
  *GET https://api.spotify.com/v1/albums* : Nos devuelve varios álbumes
+ 
  *GET https://api.spotify.com/v1/albums/{id}* : Nos devuelve la información de un álbum
+ 
  *GET https://api.spotify.com/v1/albums/{id}/tracks* : Nos devuelve una lista con las canciones que componen un álbum
 
 --**Artista** 
