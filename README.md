@@ -65,7 +65,7 @@ A su vez se podrá visualizar por pantalla la información de sus  favoritos fil
 # API
 Para el desarrollo de esta aplicación web se ha hecho uso de la API oficial de Spotify, la cual nos permite obtener información real sobre artistas, álbumes, canciones y podcasts.
 
---**Álbum** 
+-- **Álbum** 
 
  *GET https://api.spotify.com/v1/albums* : Nos devuelve varios álbumes
  
@@ -73,7 +73,7 @@ Para el desarrollo de esta aplicación web se ha hecho uso de la API oficial de 
  
  *GET https://api.spotify.com/v1/albums/{id}/tracks* : Nos devuelve una lista con las canciones que componen un álbum
 
---**Artista** 
+-- **Artista** 
 
  *GET https://api.spotify.com/v1/artists* : Nos devuelve varios artistas
  
@@ -87,7 +87,7 @@ Para el desarrollo de esta aplicación web se ha hecho uso de la API oficial de 
  
  *GET https://api.spotify.com/v1/tracks/{id}* : Nos devuelve la información de una canción
 
---**Podcast** 
+-- **Podcast** 
 
  *GET https://api.spotify.com/v1/episodes* : Nos devuelve varios podcast
  
