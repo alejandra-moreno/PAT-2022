@@ -33,7 +33,7 @@ La página web está compuesta por doce vistas:
 ![image](https://user-images.githubusercontent.com/78315378/169792096-ac9ea622-033e-4f76-b6e9-d214a1cfca24.png)
 
 - Register.html: En esta página se introducen los datos del usuario en caso de que no tenga una cuenta ya creada. Si se introduce algún campo erróneamente o se deja en blanco aparecerá un error. Si el usuario ya está registrado en la base de datos no le permitirá registrase y tendrá que probar con otro nuevo. Una vez se haya registrado con éxito volverá de forma predeterminada al inicio.
-- 
+
 ![image](https://user-images.githubusercontent.com/78315378/169789304-14311f58-cc7c-446e-8128-5e02bcb31324.png)
 
 - Login.html: Si no es la primera vez que utiliza la página web y ya tiene una cuenta solo tendrá que introducir el usuario y la contraseña para iniciar sesión. En caso de que ocurra un error aparecerá por pantalla un mensaje.
@@ -82,7 +82,7 @@ Para el desarrollo de esta aplicación web se ha hecho uso de la API oficial de 
  
  *GET https://api.spotify.com/v1/albums/{id}/albums* : Nos devuelve una lista con los álbumes de un artista
 
---**Canción** 
+-- **Canción** 
 
  *GET https://api.spotify.com/v1/tracks* : Nos devuelve varias canciones
  
