@@ -52,7 +52,13 @@ Ejemplo:
 
 - Profile.html: Está compuesto por dos partes principales la información personal del usuario y la información correspondiente a los favoritos. 
 Se imprimirá por pantalla la información personal y existirá la opción de actualizarla indicando el campo, introduciendo el nuevo valor y pulsando el botón actualizar. También se podrá eliminar la información de la base de datos o volver al inicio. 
+
+![image](https://user-images.githubusercontent.com/78315378/169792530-4b2fc706-a35c-445f-950d-85b1782c64d5.png)
+
 A su vez se podrá visualizar por pantalla la información de sus  favoritos filtrando. Se seleccionará si es artista, canción, álbum o podcast y si se pulsa el botón se mostrará por pantalla.
+
+![image](https://user-images.githubusercontent.com/78315378/169792724-1f13429b-d27e-42c8-a5f5-2a32d98fbc55.png)
+
 - Portfolio.html, Pricing.html, Service.html: Son páginas complementarias que ofrecen información sobre la página web como pueden ser distintos contratos o servicios que se ofrecen. 
 
 # API
