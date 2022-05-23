@@ -55,6 +55,7 @@ submitbtn.addEventListener("click",
 
   if(request.ok) {
       console.log("Success!");
+      sessionStorage.setItem("userId",idI);
       window.location.href = "./index.html";
     }
   })

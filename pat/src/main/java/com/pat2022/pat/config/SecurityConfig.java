@@ -42,15 +42,19 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 
     @Override
     public void configure(HttpSecurity http) throws Exception{
-        http.formLogin()
-                    .defaultSuccessUrl("/auth/login")
+        http
+        .csrf().disable()
+            .formLogin()
+                    .defaultSuccessUrl("/auth/access")
                     .and()
             .authorizeHttpRequests()
+                    .antMatchers("/profile.html").authenticated()
                     .anyRequest().permitAll()
                     .and()
                     .httpBasic()
             .and()
-            .csrf().disable();
+            .logout()
+            .logoutUrl("/auth/logout");
 
     }
     @Override
