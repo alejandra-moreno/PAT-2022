@@ -62,6 +62,25 @@ A su vez se podrá visualizar por pantalla la información de sus  favoritos fil
 - Portfolio.html, Pricing.html, Service.html: Son páginas complementarias que ofrecen información sobre la página web como pueden ser distintos contratos o servicios que se ofrecen. 
 
 # API
+Para el desarrollo de esta aplicación web se ha hecho uso de la API oficial de Spotify, la cual nos permite obtener información real sobre artistas, álbumes, canciones y podcasts.
+
+--**Álbum** 
+ *GET https://api.spotify.com/v1/albums* : Nos devuelve varios álbumes
+ *GET https://api.spotify.com/v1/albums/{id}* : Nos devuelve la información de un álbum
+ *GET https://api.spotify.com/v1/albums/{id}/tracks* : Nos devuelve una lista con las canciones que componen un álbum
+
+--**Artista** 
+ *GET https://api.spotify.com/v1/artists* : Nos devuelve varios artistas
+ *GET https://api.spotify.com/v1/artists/{id}* : Nos devuelve la información de un artista
+ *GET https://api.spotify.com/v1/albums/{id}/albums* : Nos devuelve una lista con los álbumes de un artista
+
+--**Canción** 
+ *GET https://api.spotify.com/v1/tracks* : Nos devuelve varias canciones
+ *GET https://api.spotify.com/v1/tracks/{id}* : Nos devuelve la información de una canción
+
+--**Podcast** 
+ *GET https://api.spotify.com/v1/episodes* : Nos devuelve varios podcast
+ *GET https://api.spotify.com/v1/episodes/{id}* : Nos devuelve la información de un podcast
 
 # Testing y Seguridad
 
